@@ -401,11 +401,8 @@ public class RegionCommand extends SimpleCommand {
 			}
 			
 			// FIXME might want to only update a few chests per tick
-			Iterator<Location> i = found.iterator();
-			while (i.hasNext()) {
-				Location treasure = i.next();
+			for(Location treasure: found){
 				Block block = treasure.getBlock();
-
 				try {
 					switch (task) {
 					case SET:
