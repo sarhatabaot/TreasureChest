@@ -32,127 +32,102 @@ import com.mtihc.minecraft.treasurechest.v8.util.commands.CommandException;
 import com.mtihc.minecraft.treasurechest.v8.util.commands.SimpleCommand;
 
 public class TreasureChestPlugin extends JavaPlugin implements Listener {
-	
-	
-	
-	
-	
-	
-	private TreasureManagerConfiguration config;
-	private TreasureManager manager;
-	private SimpleCommand cmd;
-	
-	
-	
-	
-	
-	@Override
-	public void onEnable() {
+    private TreasureManagerConfiguration config;
+    private TreasureManager manager;
+    private SimpleCommand cmd;
 
-		// create config
-		config = new TreasureManagerConfiguration(this, "config");
-		
-		// create manager
-		manager = new TreasureManager(
-				this, config, 
-				new TreasureChestRepository(getDataFolder() + "/treasure"), 
-				new TreasureChestGroupRepository(getDataFolder() + "/groups"),
-				new TreasureChestMemory(getDataFolder() + "/players"), 
-				Permission.ACCESS_TREASURE.getNode(), 
-				Permission.ACCESS_UNLIMITED.getNode(),
-				Permission.RANK.getNode());
+    @Override
+    public void onEnable() {
 
-		config.reload();
-		
-		// create command
-		cmd = new TreasureChestCommand(manager, null);
-		
-		
-		// register factories
-		manager.getRewardManager().setFactory(new AirRewardFactory());
-		manager.getRewardManager().setFactory(new BankRobberRewardFactory(this));
-		manager.getRewardManager().setFactory(new BroadcastRewardFactory(this));
-		manager.getRewardManager().setFactory(new CommandRewardFactory(this));
-		manager.getRewardManager().setFactory(new ExplosionRewardFactory(this));
-		manager.getRewardManager().setFactory(new FlyRewardFactory(this));
-		manager.getRewardManager().setFactory(new FoodRewardFactory());
-		manager.getRewardManager().setFactory(new HealthRewardFactory());
-		manager.getRewardManager().setFactory(new LevelRewardFactory());
-		manager.getRewardManager().setFactory(new MoneyRewardFactory());
-		manager.getRewardManager().setFactory(new PotionRewardFactory(this));
-		manager.getRewardManager().setFactory(new RedstoneRewardFactory(this));
-		manager.getRewardManager().setFactory(new RestoreRewardFactory(this, config.getSubregionTicks(), config.getSubregionSize()));
-		manager.getRewardManager().setFactory(new ScoreRewardFactory());
-		manager.getRewardManager().setFactory(new SpawnRewardFactory(this));
-		manager.getRewardManager().setFactory(new TeleportRewardFactory(this));
-		
-	}
-	
-	
-	
-	
-	
-	/**
-	 * 
-	 * @return the treasure manager
-	 */
-	public TreasureManager getManager() {
-		return manager;
-	}
-	
-	
-	
-	
-	
-	@Override
-	public boolean onCommand(CommandSender sender, Command command,
-			String label, String[] args) {
-		String lbl = label.toLowerCase();
-		if(cmd.getLabel().equals(lbl) || search(cmd.getAliases(), lbl)) {
-			
-			
-			try {
-				cmd.execute(sender, args);
-			} catch (CommandException e) {
-				sender.sendMessage(ChatColor.RED + e.getMessage());
-			}
-			return true;
-		}
-		else {
-			return false;
-		}
-	}
-	
-	private boolean search(String[] array, String string) {
-		for (String e : array) {
-			if(e.equalsIgnoreCase(string)) {
-				return true;
-			}
-		}
-		return false;
-	}
-	
-	
-	
-	
-	
-	@Override
-	public FileConfiguration getConfig() {
-		return config.getConfig();
-	}
+        // create config
+        config = new TreasureManagerConfiguration(this, "config");
 
-	@Override
-	public void reloadConfig() {
-		config.reload();
-	}
+        // create manager
+        manager = new TreasureManager(
+                this, config,
+                new TreasureChestRepository(getDataFolder() + "/treasure"),
+                new TreasureChestGroupRepository(getDataFolder() + "/groups"),
+                new TreasureChestMemory(getDataFolder() + "/players"),
+                Permission.ACCESS_TREASURE.getNode(),
+                Permission.ACCESS_UNLIMITED.getNode(),
+                Permission.RANK.getNode());
 
-	@Override
-	public void saveConfig() {
-		config.save();
-	}
-	
-	
-	
-	
-	
+        config.reload();
+
+        // create command
+        cmd = new TreasureChestCommand(manager, null);
+
+        // register factories
+        manager.getRewardManager().setFactory(new AirRewardFactory());
+        manager.getRewardManager().setFactory(new BankRobberRewardFactory(this));
+        manager.getRewardManager().setFactory(new BroadcastRewardFactory(this));
+        manager.getRewardManager().setFactory(new CommandRewardFactory(this));
+        manager.getRewardManager().setFactory(new ExplosionRewardFactory(this));
+        manager.getRewardManager().setFactory(new FlyRewardFactory(this));
+        manager.getRewardManager().setFactory(new FoodRewardFactory());
+        manager.getRewardManager().setFactory(new HealthRewardFactory());
+        manager.getRewardManager().setFactory(new LevelRewardFactory());
+        manager.getRewardManager().setFactory(new MoneyRewardFactory());
+        manager.getRewardManager().setFactory(new PotionRewardFactory(this));
+        manager.getRewardManager().setFactory(new RedstoneRewardFactory(this));
+        manager.getRewardManager().setFactory(new RestoreRewardFactory(this, config.getSubregionTicks(), config.getSubregionSize()));
+        manager.getRewardManager().setFactory(new ScoreRewardFactory());
+        manager.getRewardManager().setFactory(new SpawnRewardFactory(this));
+        manager.getRewardManager().setFactory(new TeleportRewardFactory(this));
+
+    }
+
+
+    /**
+     * @return the treasure manager
+     */
+    public TreasureManager getManager() {
+        return manager;
+    }
+
+
+    @Override
+    public boolean onCommand(CommandSender sender, Command command,
+                             String label, String[] args) {
+        String lbl = label.toLowerCase();
+        if (cmd.getLabel().equals(lbl) || search(cmd.getAliases(), lbl)) {
+
+
+            try {
+                cmd.execute(sender, args);
+            } catch (CommandException e) {
+                sender.sendMessage(ChatColor.RED + e.getMessage());
+            }
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    private boolean search(String[] array, String string) {
+        for (String e : array) {
+            if (e.equalsIgnoreCase(string)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+
+    @Override
+    public FileConfiguration getConfig() {
+        return config.getConfig();
+    }
+
+    @Override
+    public void reloadConfig() {
+        config.reload();
+    }
+
+    @Override
+    public void saveConfig() {
+        config.save();
+    }
+
+
 }

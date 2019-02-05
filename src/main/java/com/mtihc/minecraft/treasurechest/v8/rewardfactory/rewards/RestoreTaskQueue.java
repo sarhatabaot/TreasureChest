@@ -6,6 +6,7 @@ import java.util.LinkedHashSet;
 import java.util.Set;
 import java.util.concurrent.ArrayBlockingQueue;
 
+import com.sk89q.worldedit.math.Vector3;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.util.Vector;
 
@@ -49,7 +50,7 @@ public class RestoreTaskQueue {
 	
 	
 	
-	public void add(final String id, JavaPlugin plugin, String snapshotName, String worldName, Vector min, Vector max, long subregionTicks, int subregionSize) {
+	public void add(final String id, JavaPlugin plugin, String snapshotName, String worldName, Vector3 min, Vector3 max, long subregionTicks, int subregionSize) {
 		
 		RestoreTask restore = new RestoreTask(plugin, snapshotName, worldName, min, max, subregionTicks, subregionSize) {
 

@@ -1,6 +1,6 @@
 package com.mtihc.minecraft.treasurechest.v8.rewardfactory.rewards;
 
-import com.sk89q.worldedit.Vector;
+import com.sk89q.worldedit.math.Vector3;
 import com.sk89q.worldedit.regions.CuboidRegion;
 
 public class RegionIterator {
@@ -10,10 +10,10 @@ public class RegionIterator {
 	private int z;
 	
 	private int size;
-	private Vector min;
-	private Vector max;
+	private Vector3 min;
+	private Vector3 max;
 
-	public RegionIterator(Vector min, Vector max, int subregionSize) {
+	public RegionIterator(Vector3 min, Vector3 max, int subregionSize) {
 		this.size = subregionSize;
 		this.min = min;
 		this.max = max;
@@ -23,15 +23,15 @@ public class RegionIterator {
 	
 	public void reset() {
 
-		x = min.getBlockX();
-		y = min.getBlockY();
-		z = min.getBlockZ();
+		x = min.toBlockPoint().getBlockX();
+		y = min.toBlockPoint().getBlockY();
+		z = min.toBlockPoint().getBlockZ();
 		
 	}
 
 	public CuboidRegion next() {
 		
-		if(y > max.getBlockY()) {
+		if(y > max.toBlockPoint().getBlockY()) {
 			reset();
 			return null;
 		}
@@ -39,11 +39,11 @@ public class RegionIterator {
 
 		CuboidRegion result = createRegion();
 		
-		if(x + size > max.getBlockX()) {
-			x = min.getBlockX();
-			if(z + size > max.getBlockZ()) {
-				z = min.getBlockZ();
-				if(y + size > max.getBlockY()) {
+		if(x + size > max.toBlockPoint().getBlockX()) {
+			x = min.toBlockPoint().getBlockX();
+			if(z + size > max.toBlockPoint().getBlockZ()) {
+				z = min.toBlockPoint().getBlockZ();
+				if(y + size > max.toBlockPoint().getBlockY()) {
 					// will stop next time
 					y+=size;
 					return result;
@@ -68,24 +68,24 @@ public class RegionIterator {
 		int newY = y;
 		int newZ = z;
 		
-		Vector minimum = new Vector(newX, newY, newZ);
+		Vector3 minimum = Vector3.at(newX, newY, newZ);
 		
 		newX += size;
 		newY += size;
 		newZ += size;
 		
-		if(newX > max.getBlockX()) {
-			newX = max.getBlockX();
+		if(newX > max.toBlockPoint().getBlockX()) {
+			newX = max.toBlockPoint().getBlockX();
 		}
-		if(newY > max.getBlockY()) {
-			newY = max.getBlockY();
+		if(newY > max.toBlockPoint().getBlockY()) {
+			newY = max.toBlockPoint().getBlockY();
 		}
-		if(newZ > max.getBlockZ()) {
-			newZ = max.getBlockZ();
+		if(newZ > max.toBlockPoint().getBlockZ()) {
+			newZ = max.toBlockPoint().getBlockZ();
 		}
 		
-		Vector maximum = new Vector(newX, newY, newZ);
+		Vector3 maximum = Vector3.at(newX, newY, newZ);
 		
-		return new CuboidRegion(minimum, maximum);
+		return new CuboidRegion(minimum.toBlockPoint(), maximum.toBlockPoint());
 	}
 }

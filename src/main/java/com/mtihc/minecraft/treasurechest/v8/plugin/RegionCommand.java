@@ -5,6 +5,11 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
+import com.sk89q.worldedit.IncompleteRegionException;
+import com.sk89q.worldedit.LocalSession;
+import com.sk89q.worldedit.bukkit.BukkitAdapter;
+import com.sk89q.worldedit.math.Vector3;
+import com.sk89q.worldedit.regions.Region;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -15,7 +20,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.Plugin;
-import org.bukkit.util.Vector;
 import com.mtihc.minecraft.treasurechest.v8.core.TreasureException;
 import com.mtihc.minecraft.treasurechest.v8.core.TreasureManager;
 import com.mtihc.minecraft.treasurechest.v8.util.commands.Command;
@@ -249,41 +253,47 @@ public class RegionCommand extends SimpleCommand {
 			throw new CommandException("This command requires WE");
 		}
 		WorldEditPlugin worldEdit = (WorldEditPlugin) we;
-		Selection sel = worldEdit.getSelection(player);
-		if (sel == null || sel.getMaximumPoint() == null
-				|| sel.getMinimumPoint() == null) {
+		LocalSession localSession = worldEdit.getSession(player);
+		com.sk89q.worldedit.world.World worldEditWorld = BukkitAdapter.adapt(player.getWorld());
+		Region region = null;
+		try{
+			region = localSession.getSelection(worldEditWorld);
+		} catch (IncompleteRegionException exception){
+
+		}
+		if (region == null || region.getMaximumPoint() == null
+				|| region.getMinimumPoint() == null) {
 			throw new CommandException("You didn't select a region.");
 		}
 
-		World world = sel.getWorld();
-		Vector min = sel.getMinimumPoint().toVector();
-		Vector max = sel.getMaximumPoint().toVector();
+		Vector3 min = region.getMinimumPoint().toVector3();
+		Vector3 max = region.getMaximumPoint().toVector3();
 
-		player.sendMessage(ChatColor.GOLD + "Searching for container blocks in the region (" + world.getName() + ";" + min.toString() + ";" +  max.toString() + ") this may take some time");
+		player.sendMessage(ChatColor.GOLD + "Searching for container blocks in the region (" + worldEditWorld.getName() + ";" + min.toString() + ";" +  max.toString() + ") this may take some time");
 		
 		// Do the work of finding the containers in a worker thread as we don't want to timeout the server
-		manager.getPlugin().getServer().getScheduler().runTaskAsynchronously(manager.getPlugin(), new FindContainers(manager, player, sel.getWorld(), min, max, task, group, filterList));
+		manager.getPlugin().getServer().getScheduler().runTaskAsynchronously(manager.getPlugin(), new FindContainers(manager, player, BukkitAdapter.adapt(region.getWorld()), min, max, task, group, filterList));
 	}
 	
 	private class FindContainers implements Runnable {
 		TreasureManager manager;
 		Player player;
 		World world;
-		Vector min,max;
+		Vector3 min,max;
 		TaskType task;
 		String group;
 		
 		Set<Location> found;
 		Set<Material> filterList;
 
-		public FindContainers(TreasureManager manager, Player player, World world, Vector min, Vector max, TaskType task, String group, Set<Material> filterList) {
+		public FindContainers(TreasureManager manager, Player player, World world, Vector3 min, Vector3 max, TaskType task, String group, Set<Material> filterList) {
 			this.manager = manager;
 			this.player = player;
 			this.world = world;
 			this.min = min;
 			this.max = max;
 			this.task = task;
-			this.found = new HashSet<n>();
+			this.found = new HashSet<>();
 			this.group = group;
 			this.filterList = filterList;
 		}
@@ -293,9 +303,9 @@ public class RegionCommand extends SimpleCommand {
 
 			// FIXME Need to round up where the min/max is using the inner side or corner of selected cord
 			// Search the selected cuboid for containers
-			for (y=min.getBlockY();y<max.getBlockY();y++) {
-				for (z=min.getBlockZ();z<max.getBlockZ();z++) {
-					for (x=min.getBlockX();x<max.getBlockX();x++) {
+			for (y=min.toBlockPoint().getY();y<max.toBlockPoint().getBlockY();y++) {
+				for (z=min.toBlockPoint().getBlockZ();z<max.toBlockPoint().getBlockZ();z++) {
+					for (x=min.toBlockPoint().getBlockX();x<max.toBlockPoint().getBlockX();x++) {
 						Iterator<Material> i = filterList.iterator();
 						while (i.hasNext()) {
 							Material checkMaterial = i.next();
