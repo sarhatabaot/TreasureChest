@@ -18,7 +18,7 @@ public class FoodReward implements IReward {
 	}
 	
 	public FoodReward(int food) {
-		Map<String, Object> data = new HashMap<String, Object>();
+		Map<String, Object> data = new HashMap<>();
 		data.put("food", food);
 		this.info = new RewardInfo("food", data);
 	}

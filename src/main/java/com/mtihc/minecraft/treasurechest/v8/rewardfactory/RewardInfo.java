@@ -41,8 +41,8 @@ public class RewardInfo implements ConfigurationSerializable {
 		this.label = (String) data.get("label");
 		
 		Map<?, ?> dataSection = (Map<?, ?>) data.get("data");
-		Set<?> dataEntries = (Set<?>) dataSection.entrySet();
-		this.data = new LinkedHashMap<String, Object>();
+		Set<?> dataEntries = dataSection.entrySet();
+		this.data = new LinkedHashMap<>();
 		for (Object object : dataEntries) {
 			Map.Entry<?, ?> entry = (Map.Entry<?, ?>) object;
 			this.data.put((String) entry.getKey(), entry.getValue());
@@ -61,7 +61,7 @@ public class RewardInfo implements ConfigurationSerializable {
 
 	@Override
 	public Map<String, Object> serialize() {
-		Map<String, Object> result = new LinkedHashMap<String, Object>();
+		Map<String, Object> result = new LinkedHashMap<>();
 		
 		result.put("label", label);
 		result.put("data", data);

@@ -15,7 +15,7 @@ public class PotionReward implements IReward {
 	private RewardInfo info;
 
 	public PotionReward(PotionEffect effect) {
-		this.info = new RewardInfo("potion", new HashMap<String, Object>());
+		this.info = new RewardInfo("potion", new HashMap<>());
 		setEffect(effect);
 	}
 	
@@ -33,8 +33,7 @@ public class PotionReward implements IReward {
 	}
 	
 	public PotionEffectType getEffectType() {
-		PotionEffectType type = PotionEffectType.getByName(getEffectName());
-		return type; 
+		return PotionEffectType.getByName(getEffectName());
 	}
 	
 	public PotionEffect createEffect() {

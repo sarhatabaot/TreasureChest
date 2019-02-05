@@ -91,7 +91,7 @@ public class TreasureChestMemory extends YamlRepository<String> implements ITrea
 
 	@Override
 	public Collection<Location> getAllPlayerFound(OfflinePlayer player, World world) {
-		ArrayList<Location> locs = new ArrayList<Location>();
+		ArrayList<Location> locs = new ArrayList<>();
 		YamlConfiguration config = getYamlConfig(player.getName());
 		if(config == null) {
 			return locs;

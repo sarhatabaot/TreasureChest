@@ -19,7 +19,7 @@ public class HealthReward implements IReward {
 	}
 	
 	public HealthReward(double health) {
-		Map<String, Object> data = new HashMap<String, Object>();
+		Map<String, Object> data = new HashMap<>();
 		data.put("health", health);
 		this.info = new RewardInfo("health", data);
 	}

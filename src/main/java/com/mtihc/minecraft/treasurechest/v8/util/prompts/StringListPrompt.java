@@ -82,11 +82,10 @@ public abstract class StringListPrompt extends ValidatingPrompt {
 	}
 	
 	public ArrayList<String> getList(ConversationContext context) {
-		@SuppressWarnings("unchecked")
 		ArrayList<String> result = (ArrayList<String>) context.getSessionData("list");
 		
 		if(result == null) {
-			result = new ArrayList<String>();
+			result = new ArrayList<>();
 			context.setSessionData("list", result);
 		}
 		return result;

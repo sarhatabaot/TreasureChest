@@ -32,8 +32,8 @@ public class SimpleCommand implements ICommand {
 	protected String desc;
 	protected String[] help;
 	
-	protected final Map<String, CommandFactory> factories = new LinkedHashMap<String, CommandFactory>();
-	protected final Set<String> labels = new LinkedHashSet<String>();
+	protected final Map<String, CommandFactory> factories = new LinkedHashMap<>();
+	protected final Set<String> labels = new LinkedHashSet<>();
 	
 	protected final ICommand parent;
 	
@@ -133,7 +133,6 @@ public class SimpleCommand implements ICommand {
 		if(args.length == 0) {
 			// no arguments
 			onCommand(sender, args);
-			return;
 		}
 		else {
 			firstArgument = args[0];
@@ -168,13 +167,11 @@ public class SimpleCommand implements ICommand {
 				
 				// execute nested command
 				nested.execute(sender, args);
-				return;
 			} else {
 				// first argument is not a nested command
 				
 				// execute this command
 				onCommand(sender, args);
-				return;
 			}
 		}
 	}
@@ -445,7 +442,7 @@ public class SimpleCommand implements ICommand {
 
 		private ICommand newInstance(Constructor<?> constructor) {
 			constructor.setAccessible(true);
-			Exception exception = null;
+			Exception exception;
 			try {
 				return (ICommand) constructor.newInstance(args);
 			} catch (InstantiationException e) {

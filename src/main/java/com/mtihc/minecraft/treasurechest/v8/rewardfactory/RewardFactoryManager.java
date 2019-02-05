@@ -20,7 +20,7 @@ import com.mtihc.minecraft.treasurechest.v8.rewardfactory.RewardFactory.CreateCa
  */
 public class RewardFactoryManager {
 	
-	private Map<String, RewardFactory> factories = new LinkedHashMap<String, RewardFactory>();
+	private Map<String, RewardFactory> factories = new LinkedHashMap<>();
 	
 	/**
 	 * Constructor.

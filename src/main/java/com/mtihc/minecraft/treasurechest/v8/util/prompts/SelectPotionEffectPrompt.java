@@ -99,7 +99,7 @@ public abstract class SelectPotionEffectPrompt extends ValidatingPrompt {
 			
 			@Override
 			protected Prompt acceptValidatedInput(ConversationContext context, String input) {
-				context.getForWhom().sendRawMessage(ChatColor.GREEN + "Duration set to " + ChatColor.WHITE + ((Integer) context.getSessionData("duration")) + ChatColor.GREEN + " seconds.");
+				context.getForWhom().sendRawMessage(ChatColor.GREEN + "Duration set to " + ChatColor.WHITE + context.getSessionData("duration") + ChatColor.GREEN + " seconds.");
 				
 				return new ValidatingPrompt() {
 					

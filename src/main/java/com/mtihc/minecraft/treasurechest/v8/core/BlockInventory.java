@@ -21,34 +21,10 @@ import org.bukkit.util.Vector;
  *
  */
 public class BlockInventory implements IBlockInventory {
-
 	private Location location;
 	private InventoryType type;
 	private int size;
 	private ItemStack[] contents;
-	
-	/*
-	 * @deprecated This constructor is only required to convert from v7 to v8
-	 */
-	/*@Deprecated
-	public BlockInventory(Location location, ItemStack[] contents) {
-		this.location = location;
-		this.type = InventoryType.CHEST;
-		this.contents = contents;
-		this.size = Math.min(type.getDefaultSize() * 2, contents.length);
-		if(contents.length > size) {
-			ItemStack[] newContents = new ItemStack[size];
-			int index = 0;
-			for (int i = 0; i < contents.length; i++) {
-				if(contents[i] == null || contents[i].getTypeId() == 0) {
-					continue;
-				}
-				newContents[index] = contents[i];
-				index++;
-			}
-			this.contents = newContents;
-		}
-	}*/
 
 	/**
 	 * Constructor.
@@ -103,22 +79,21 @@ public class BlockInventory implements IBlockInventory {
 
 	@Override
 	public Map<String, Object> serialize() {
-		Map<String, Object> values = new LinkedHashMap<String, Object>();
+		Map<String, Object> values = new LinkedHashMap<>();
 		values.put("world", location.getWorld().getName());
 		values.put("coords", location.toVector());
 		values.put("type", type.name());
 		values.put("size", size);
 		
 		
-		Map<String, Object> contentsSection = new LinkedHashMap<String, Object>();
+		Map<String, Object> contentsSection = new LinkedHashMap<>();
 		for (int i = 0; i < contents.length; i++) {
 			ItemStack item = contents[i];
 			if(item == null || item.getType() == Material.AIR) { 
 				continue;
 			}
-			
-			Object element = item;
-			element = new ItemStackWrapper(item);
+
+			Object element = new ItemStackWrapper(item);
 			contentsSection.put("item" + i, element);
 		}
 		values.put("contents", contentsSection);

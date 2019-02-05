@@ -17,13 +17,12 @@ import com.mtihc.minecraft.treasurechest.v8.rewardfactory.IReward;
 import com.mtihc.minecraft.treasurechest.v8.rewardfactory.RewardException;
 import com.mtihc.minecraft.treasurechest.v8.rewardfactory.RewardInfo;
 
-@SuppressWarnings("deprecation")
 public class RedstoneReward implements IReward {
 
 	private RewardInfo info;
 	
 	public RedstoneReward(Block attachedBlock, BlockFace facing) {
-		Map<String, Object> data = new HashMap<String, Object>();
+		Map<String, Object> data = new HashMap<>();
 		this.info = new RewardInfo("redstone", data);
 		
 		setAttachedBlock(attachedBlock.getLocation());

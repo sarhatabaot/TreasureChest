@@ -17,7 +17,7 @@ public class FlyReward implements IReward {
 	public FlyReward(FlyRewardFactory factory, int seconds) {
 		this.factory = factory;
 		
-		Map<String, Object> data = new LinkedHashMap<String, Object>();
+		Map<String, Object> data = new LinkedHashMap<>();
 		data.put("seconds", seconds);
 		
 		this.info = new RewardInfo("fly", data);

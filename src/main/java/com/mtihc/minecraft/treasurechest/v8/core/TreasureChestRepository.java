@@ -113,7 +113,7 @@ public class TreasureChestRepository extends Repository<Location, ITreasureChest
 
 	@Override
 	public Set<Location> getTreasureLocations(String worldName) {
-		final Set<Location> result = new HashSet<Location>();
+		final Set<Location> result = new HashSet<>();
 		
 		File dir = getWorldDirectory(worldName);
 		if(!dir.exists()) {

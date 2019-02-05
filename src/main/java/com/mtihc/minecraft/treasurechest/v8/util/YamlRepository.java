@@ -161,7 +161,7 @@ public abstract class YamlRepository<K> {
 	 * @return all yml configuration file names in this repository.
 	 */
 	public Set<String> getNames() {
-		final HashSet<String> result = new HashSet<String>();
+		final HashSet<String> result = new HashSet<>();
 		final String extension = ".yml";
 		final int length = extension.length();
 		directory.list(new FilenameFilter() {

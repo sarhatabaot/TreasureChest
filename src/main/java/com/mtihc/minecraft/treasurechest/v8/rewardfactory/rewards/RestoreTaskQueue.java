@@ -18,11 +18,11 @@ public class RestoreTaskQueue {
 		void onRestoreCancel(RestoreTask restore);
 	}
 	
-	private LinkedHashMap<String, RestoreTask> queue = new LinkedHashMap<String, RestoreTask>();
+	private LinkedHashMap<String, RestoreTask> queue = new LinkedHashMap<>();
 	private RestoreTask currentTask;
-	private ArrayBlockingQueue<RestoreTask> q = new ArrayBlockingQueue<RestoreTask>(10, true);
+	private ArrayBlockingQueue<RestoreTask> q = new ArrayBlockingQueue<>(10, true);
 	
-	private Set<Observer> observers = new LinkedHashSet<Observer>();
+	private Set<Observer> observers = new LinkedHashSet<>();
 	
 	public RestoreTaskQueue() {
 		

@@ -16,7 +16,7 @@ public class BroadcastReward implements IReward {
 	private RewardInfo info;
 
 	public BroadcastReward(List<String> messages) {
-		this.info = new RewardInfo("broadcast", new HashMap<String, Object>());
+		this.info = new RewardInfo("broadcast", new HashMap<>());
 		setMessages(messages);
 	}
 	

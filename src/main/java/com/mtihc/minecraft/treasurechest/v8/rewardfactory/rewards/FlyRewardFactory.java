@@ -18,7 +18,7 @@ import com.mtihc.minecraft.treasurechest.v8.rewardfactory.RewardInfo;
 public class FlyRewardFactory extends RewardFactory {
 
 	private final JavaPlugin plugin;
-	private final Map<String, FlyTimer> active = new HashMap<String, FlyTimer>();
+	private final Map<String, FlyTimer> active = new HashMap<>();
 	
 	public FlyRewardFactory(JavaPlugin plugin) {
 		this.plugin = plugin;

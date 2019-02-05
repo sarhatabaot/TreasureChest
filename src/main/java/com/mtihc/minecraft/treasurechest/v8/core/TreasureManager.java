@@ -95,7 +95,7 @@ public class TreasureManager extends TreasureDataFacade {
 	private JavaPlugin plugin;
 	private ITreasureManagerConfiguration config;
 	
-	private LinkedHashMap<String, TreasureInventory> inventories = new LinkedHashMap<String, TreasureInventory>();
+	private LinkedHashMap<String, TreasureInventory> inventories = new LinkedHashMap<>();
 	private String permAccessNormal;
 	private String permAccessUnlimited;
 	private String permRank;
@@ -533,7 +533,7 @@ public class TreasureManager extends TreasureDataFacade {
 	}
 	
 	public Set<String> getRanks(ITreasureChest tchest) {
-		HashSet<String> result = new HashSet<String>();
+		HashSet<String> result = new HashSet<>();
 		List<String> chestRanks = tchest.getRanks();
 		if(chestRanks == null || chestRanks.isEmpty()) {
 			return result;
@@ -666,7 +666,7 @@ public class TreasureManager extends TreasureDataFacade {
 		}
 		
 		// find indices of non-empty inventory slots
-		List<Integer> nonNulls = new ArrayList<Integer>();
+		List<Integer> nonNulls = new ArrayList<>();
 		for (int i = 0; i < inventory.length; i++) {
 			if(inventory[i] != null) {
 				nonNulls.add(i);
@@ -730,7 +730,7 @@ public class TreasureManager extends TreasureDataFacade {
 	
 	private static HashSet<Material> getInvisibleBlocks() {
 		if(invisibleBlocks == null) {
-			invisibleBlocks  = new HashSet<Material>();
+			invisibleBlocks  = new HashSet<>();
 			Material[] mats = Material.values();
 			for (Material mat : mats) {
 				if(mat.isTransparent()) {

@@ -1,9 +1,10 @@
 package com.mtihc.minecraft.treasurechest.v8.rewardfactory.rewards;
 
+import com.mtihc.minecraft.treasurechest.v8.util.BukkitUtil;
 import com.sk89q.worldedit.EditSession;
 import com.sk89q.worldedit.MaxChangedBlocksException;
-import com.sk89q.worldedit.Vector;
 import com.sk89q.worldedit.WorldEdit;
+import com.sk89q.worldedit.math.Vector3;
 import com.sk89q.worldedit.regions.CuboidRegion;
 import com.sk89q.worldedit.regions.Region;
 import com.sk89q.worldedit.world.snapshot.InvalidSnapshotException;
@@ -16,24 +17,9 @@ import java.util.List;
 
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitTask;
+import org.bukkit.util.Vector;
 
 abstract class RestoreTask implements Runnable {
-	
-	public static com.sk89q.worldedit.world.World getLocalWorld(WorldEdit worldEdit, String worldName) {
-		List<? extends com.sk89q.worldedit.world.World> worlds = worldEdit.getServer().getWorlds();
-		for (com.sk89q.worldedit.world.World world : worlds) {
-			if (world.getName().toLowerCase() == worldName.toLowerCase()) {
-				return world;
-			}
-		}
-		return null;
-	}
-	
-	public static Vector getVector(org.bukkit.util.Vector vec) {
-		return new Vector(vec.getBlockX(), vec.getBlockY(), vec.getBlockZ());
-	}
-	
-	//private RestoreRepository repo;
 	private JavaPlugin plugin;
 	private long delay;
 	private int subregionSize;
@@ -41,11 +27,29 @@ abstract class RestoreTask implements Runnable {
 	private ChunkStore chunkStore;
 	private String snapshotName;
 	private String worldName;
-	private org.bukkit.util.Vector min;
-	private org.bukkit.util.Vector max;
+	private Vector min;
+	private Vector max;
 	private RegionIterator iterator;
 
-	RestoreTask(JavaPlugin plugin, String snapshotName, String worldName, org.bukkit.util.Vector min, org.bukkit.util.Vector max, long subregionTicks, int subregionSize) {
+	//TODO: New WorldEdit compat 7.0.0
+	@Deprecated
+	public static com.sk89q.worldedit.world.World getLocalWorld(WorldEdit worldEdit, String worldName) {
+		List<? extends com.sk89q.worldedit.world.World> worlds = worldEdit.getServer().getWorlds();
+		for (com.sk89q.worldedit.world.World world : worlds) {
+			if (world.getName().equalsIgnoreCase(worldName)) {
+				return world;
+			}
+		}
+		return null;
+	}
+	
+	public static Vector3 getVector(Vector vec) {
+		return Vector3.at(vec.getBlockX(), vec.getBlockY(), vec.getBlockZ());
+	}
+	
+	//private RestoreRepository repo;
+
+	RestoreTask(JavaPlugin plugin, String snapshotName, String worldName, Vector min, Vector max, long subregionTicks, int subregionSize) {
 		this.plugin = plugin;
 		this.snapshotName = snapshotName;
 		this.worldName = worldName;

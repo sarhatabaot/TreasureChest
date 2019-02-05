@@ -99,8 +99,6 @@ public class TreasureChestCommand extends SimpleCommand {
 	@Command(aliases = { "count" }, args = "[player]", desc = "Count found treasures.", help = { "Counts how many treasures you, or someone else, found in this world.", "Specify a player name to count another player's found treasures." })
 	public void count(CommandSender sender, String[] args) throws CommandException {
 		
-		
-		
 		if(args.length > 1) {
 			throw new CommandException("Expected only the optional player name.");
 		}
@@ -122,7 +120,7 @@ public class TreasureChestCommand extends SimpleCommand {
 			throw new CommandException("You don't have permission to see how many treasures other players have found.");
 		}
 		
-		OfflinePlayer player = null;
+		OfflinePlayer player;
 		player = BukkitUtil.findOfflinePlayer(playerName);
 		if(player == null || !player.hasPlayedBefore()) {
 			throw new CommandException("Player \"" + playerName + "\" does not exist.");
@@ -469,7 +467,6 @@ public class TreasureChestCommand extends SimpleCommand {
 			sender.sendMessage(ChatColor.YELLOW + "This treasure is no longer random.");
 		}
 		manager.setTreasure(tchest);
-		return;
 	}
 
 	@Command(aliases = { "unlimited", "setunlimited", "u" }, args = "", desc = "Make a treasure unlimited.", help = { "Will not use forget-time. ", "Will be refilled everytime it's opened." })
@@ -721,9 +718,8 @@ public class TreasureChestCommand extends SimpleCommand {
 		if(other && !sender.hasPermission(Permission.FORGET_OTHERS.getNode())) {
 			throw new CommandException("You don't have permission to make a treasure forget that a player has found it.");
 		}
-		
-		OfflinePlayer p = null;
-		p = BukkitUtil.findOfflinePlayer(playerName);
+
+		OfflinePlayer p = BukkitUtil.findOfflinePlayer(playerName);
 		if(p == null || !p.hasPlayedBefore()) {
 			throw new CommandException("Player \"" + playerName + "\" does not exist.");
 		}

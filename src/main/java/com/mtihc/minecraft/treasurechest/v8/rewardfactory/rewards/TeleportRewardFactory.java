@@ -76,7 +76,7 @@ public class TeleportRewardFactory extends RewardFactory {
 		WorldEditPlugin worldEdit;
 		
 		Plugin we = plugin.getServer().getPluginManager().getPlugin("WorldEdit");
-		if(we != null && we instanceof WorldEditPlugin) {
+		if(we instanceof WorldEditPlugin) {
 			worldEdit = (WorldEditPlugin) we;
 		}
 		else {
@@ -148,7 +148,7 @@ public class TeleportRewardFactory extends RewardFactory {
 			}
 		};
 		
-		Map<Object, Object> data = new HashMap<Object, Object>();
+		Map<Object, Object> data = new HashMap<>();
 		
 		new ConversationFactory(plugin)
 		.withFirstPrompt(firstPrompt)
@@ -196,7 +196,7 @@ public class TeleportRewardFactory extends RewardFactory {
 		onPlayerLeave(event);
 	}
 	
-	private final HashMap<String, TeleportTimer> timers = new HashMap<String, TeleportTimer>();
+	private final HashMap<String, TeleportTimer> timers = new HashMap<>();
 	
 	private class TeleportTimer implements Runnable {
 

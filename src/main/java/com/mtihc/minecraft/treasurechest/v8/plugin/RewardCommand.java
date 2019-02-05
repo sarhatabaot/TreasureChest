@@ -193,7 +193,7 @@ public class RewardCommand extends SimpleCommand {
 		tchest.setRewards(rewards);
 		manager.setTreasure(tchest);
 		
-		sender.sendMessage(ChatColor.GREEN + "Reward " + ChatColor.WHITE + String.valueOf(number) + ChatColor.GREEN + " removed.");
+		sender.sendMessage(ChatColor.GREEN + "Reward " + ChatColor.WHITE + number + ChatColor.GREEN + " removed.");
 		
 	}
 

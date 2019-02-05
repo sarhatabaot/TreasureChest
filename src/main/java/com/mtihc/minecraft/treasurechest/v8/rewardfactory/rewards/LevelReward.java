@@ -19,7 +19,7 @@ public class LevelReward implements IReward {
 	
 	public LevelReward(int levels) {
 		
-		Map<String, Object> data = new HashMap<String, Object>();
+		Map<String, Object> data = new HashMap<>();
 		data.put("levels", levels);
 		this.info = new RewardInfo("level", data);
 	}

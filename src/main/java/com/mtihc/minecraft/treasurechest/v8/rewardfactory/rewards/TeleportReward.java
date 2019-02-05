@@ -23,7 +23,7 @@ public class TeleportReward implements IReward {
 
 	public TeleportReward(TeleportRewardFactory factory, World world, Vector min, Vector max, int delay) {
 		this.factory = factory;
-		this.info = new RewardInfo("tp", new HashMap<String, Object>());
+		this.info = new RewardInfo("tp", new HashMap<>());
 		setRegion(world, min, max);
 		setDelay(delay);
 	}

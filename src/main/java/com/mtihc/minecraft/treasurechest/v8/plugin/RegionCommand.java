@@ -4,6 +4,7 @@ import java.util.EnumSet;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
+
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -22,7 +23,6 @@ import com.mtihc.minecraft.treasurechest.v8.util.commands.CommandException;
 import com.mtihc.minecraft.treasurechest.v8.util.commands.ICommand;
 import com.mtihc.minecraft.treasurechest.v8.util.commands.SimpleCommand;
 import com.sk89q.worldedit.bukkit.WorldEditPlugin;
-import com.sk89q.worldedit.bukkit.selections.Selection;
 
 public class RegionCommand extends SimpleCommand {
 	private enum TaskType {
@@ -31,7 +31,7 @@ public class RegionCommand extends SimpleCommand {
 		 * @deprecated Will become obsolete once the book-config feature is implemented.
 		 */
 		@Deprecated
-		USE_META_DATA;
+		USE_META_DATA
 	}
 	
 	private final EnumSet<Material> ContainerBlocks = EnumSet.of(Material.DISPENSER, Material.CHEST, Material.FURNACE, Material.LEGACY_BURNING_FURNACE, Material.TRAPPED_CHEST, Material.HOPPER, Material.DROPPER);
@@ -210,12 +210,20 @@ public class RegionCommand extends SimpleCommand {
 	}
 	
 	private void schudleFindContainerBlocks(Player player, TaskType task, String group, String filter) throws CommandException {
-		Set<Material> filterList = new HashSet<Material>();
+		Set<Material> filterList = new HashSet<>();
 
 		if (filter != null) {
 			// Process the comma separated block list if we have one ...
 			String[] materialNames = filter.split(",");
-
+			for(String materialName: materialNames){
+				Material checkMaterial = Material.matchMaterial(materialName);
+				if(!ContainerBlocks.contains(checkMaterial)){
+					throw new CommandException( "Material " + materialName.toUpperCase() + " is not a container block, please select from " + ContainerBlocks.toString());
+				} else {
+					filterList.add(checkMaterial);
+				}
+			}
+			/* TODO: Cleanup
 			for (int i=0;i<materialNames.length;i++) {
 				String materialName = materialNames[i];
 				Material checkMaterial = Material.getMaterial(materialName.toUpperCase());
@@ -225,7 +233,7 @@ public class RegionCommand extends SimpleCommand {
 				} else {
 					filterList.add(checkMaterial);
 				}
-			}
+			}*/
 		} else {
 			// ... or just copy all the container blocks into the filter list
 			Iterator<Material> i = ContainerBlocks.iterator();
@@ -237,7 +245,7 @@ public class RegionCommand extends SimpleCommand {
 		 
 		// FIXME Should we be using RegionSelect?
 		Plugin we = manager.getPlugin().getServer().getPluginManager().getPlugin("WorldEdit");
-		if (!(we != null && we instanceof WorldEditPlugin)) {
+		if (!(we instanceof WorldEditPlugin)) {
 			throw new CommandException("This command requires WE");
 		}
 		WorldEditPlugin worldEdit = (WorldEditPlugin) we;
@@ -275,7 +283,7 @@ public class RegionCommand extends SimpleCommand {
 			this.min = min;
 			this.max = max;
 			this.task = task;
-			this.found = new HashSet<Location>();
+			this.found = new HashSet<n>();
 			this.group = group;
 			this.filterList = filterList;
 		}
@@ -327,7 +335,7 @@ public class RegionCommand extends SimpleCommand {
 		private void createChestFromMetadata(Player player, Block block) {
 			InventoryHolder holder = (InventoryHolder) block.getState();
 			Iterator<ItemStack> ic = holder.getInventory().iterator();
-			Set<String> groups = new HashSet<String>();
+			Set<String> groups = new HashSet<>();
 			boolean shared = false;
 
 			// First we loop through all the the data we need ...

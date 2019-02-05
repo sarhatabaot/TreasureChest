@@ -23,7 +23,7 @@ public interface ITreasureChest extends ConfigurationSerializable {
     enum Message {
 		FOUND,
 		FOUND_ALREADY,
-		UNLIMITED;
+		UNLIMITED
 	}
 	
 	/**

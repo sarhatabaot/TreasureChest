@@ -41,7 +41,7 @@ public class ItemStackWrapper implements ConfigurationSerializable {
 
 	@Override
 	public Map<String, Object> serialize() {
-		Map<String, Object> values = new LinkedHashMap<String, Object>();
+		Map<String, Object> values = new LinkedHashMap<>();
 		values.put("stack", stack);
 		
 		return values;

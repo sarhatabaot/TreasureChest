@@ -28,7 +28,7 @@ public class TreasureChest implements ITreasureChest {
 	
 	
 	private IBlockInventory container;
-	private final Map<Message, String> messages = new HashMap<Message, String>();
+	private final Map<Message, String> messages = new HashMap<>();
 	private boolean unlimited;
 	private int random;
 	private long forgetTime;
@@ -37,7 +37,7 @@ public class TreasureChest implements ITreasureChest {
 	
 	private List<String> ranks;
 	
-	private List<RewardInfo> rewards = new ArrayList<RewardInfo>();
+	private List<RewardInfo> rewards = new ArrayList<>();
 	
 	/**
 	 * Constructor.
@@ -64,7 +64,7 @@ public class TreasureChest implements ITreasureChest {
 		ignoreProtection = false;
 		shared = false;  
 		
-		ranks = new ArrayList<String>();
+		ranks = new ArrayList<>();
 	}
 	
 	/**
@@ -127,8 +127,7 @@ public class TreasureChest implements ITreasureChest {
 		}
 		
 	}
-	
-	@SuppressWarnings("unchecked")
+
 	private List<String> castToStringList(Object value) {
 		// YamlConfiguration is capable of serializing List<String>
 		// But type casting from Object to List<String> is not possible.
@@ -144,18 +143,18 @@ public class TreasureChest implements ITreasureChest {
 		}
 		
 		if(result == null) {
-			return new ArrayList<String>();
+			return new ArrayList<>();
 		}
 		return result;
 	}
 
 	@Override
 	public Map<String, Object> serialize() {
-		Map<String, Object> values = new LinkedHashMap<String, Object>();
+		Map<String, Object> values = new LinkedHashMap<>();
 		
 		values.put("container", container);
 		
-		Map<String, Object> msgSection = new LinkedHashMap<String, Object>();
+		Map<String, Object> msgSection = new LinkedHashMap<>();
 		Set<Map.Entry<Message, String>> msgEntries = messages.entrySet();
 		for (Map.Entry<Message, String> entry : msgEntries) {
 			msgSection.put(entry.getKey().name(), entry.getValue());
@@ -168,7 +167,7 @@ public class TreasureChest implements ITreasureChest {
 		values.put("ignore-protection", ignoreProtection);
 		values.put("shared", shared);
 		
-		Map<String, Object> rewardSection = new LinkedHashMap<String, Object>();
+		Map<String, Object> rewardSection = new LinkedHashMap<>();
 		int i = 0;
 		for (RewardInfo info : rewards) {
 			rewardSection.put("reward" + i, info);
@@ -259,7 +258,7 @@ public class TreasureChest implements ITreasureChest {
 	public void setRewards(List<RewardInfo> values) {
 		this.rewards = values;
 		if(this.rewards == null) {
-			this.rewards = new ArrayList<RewardInfo>();
+			this.rewards = new ArrayList<>();
 		}
 	}
 	

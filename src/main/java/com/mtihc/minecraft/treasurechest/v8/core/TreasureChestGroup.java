@@ -33,7 +33,7 @@ public class TreasureChestGroup implements ITreasureChestGroup {
 		this.world = world;
 		this.name = name;
 		
-		chests = new ArrayList<Location>();
+		chests = new ArrayList<>();
 	}
 
 	/**
@@ -41,7 +41,7 @@ public class TreasureChestGroup implements ITreasureChestGroup {
 	 * @param values the serialized values
 	 */
 	public TreasureChestGroup(Map<String, Object> values) {
-		chests = new ArrayList<Location>();
+		chests = new ArrayList<>();
 
 		int count, i;
 		this.world = (String) values.get("world");
@@ -82,7 +82,7 @@ public class TreasureChestGroup implements ITreasureChestGroup {
 
 	@Override
 	public Set<Location> getLocations() {
-		final Set<Location> result = new HashSet<Location>();
+		final Set<Location> result = new HashSet<>();
 		Iterator<Location> i = chests.iterator();
 		while(i.hasNext()) {
 			result.add(i.next().clone());
@@ -93,8 +93,8 @@ public class TreasureChestGroup implements ITreasureChestGroup {
 	
 	@Override
 	public Map<String, Object> serialize() {
-		Map<String, Object> values = new LinkedHashMap<String, Object>();
-		Map<String, Object> chestLocs = new LinkedHashMap<String, Object>();
+		Map<String, Object> values = new LinkedHashMap<>();
+		Map<String, Object> chestLocs = new LinkedHashMap<>();
 		Iterator<Location> i = chests.iterator();
 		int chestNum = 0;
 		

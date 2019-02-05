@@ -2,6 +2,9 @@ package com.mtihc.minecraft.treasurechest.v8.util.prompts;
 
 import java.util.Set;
 
+import com.sk89q.worldedit.bukkit.BukkitAdapter;
+import com.sk89q.worldedit.bukkit.BukkitWorld;
+import com.sk89q.worldedit.regions.selector.CuboidRegionSelector;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -73,6 +76,7 @@ public abstract class SelectRegionPrompt extends ValidatingPrompt {
 
 			Player player = (Player) context.getForWhom();
 			if (hasWorldEdit()) {
+				CuboidRegionSelector selector = worldEdit.getSession(player).getSelection(BukkitAdapter.adapt(player.getWorld()));
 				Selection sel = worldEdit.getSelection(player);
 				if (sel == null || sel.getMaximumPoint() == null
 						|| sel.getMinimumPoint() == null) {
@@ -160,7 +164,7 @@ public abstract class SelectRegionPrompt extends ValidatingPrompt {
 	}
 
 	private Block getTargetBlock(Player player) {
-		Block block = player.getTargetBlock((Set<Material>) null, 8);
+		Block block = player.getTargetBlock(null, 8);
 		if (block == null || block.getType() == Material.AIR) {
 			return null;
 		}

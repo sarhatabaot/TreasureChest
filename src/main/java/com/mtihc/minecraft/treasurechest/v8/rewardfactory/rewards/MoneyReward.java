@@ -20,7 +20,7 @@ public class MoneyReward implements IReward {
 	}
 	
 	public MoneyReward(MoneyRewardFactory factory, double money) {
-		Map<String, Object> data = new LinkedHashMap<String, Object>();
+		Map<String, Object> data = new LinkedHashMap<>();
 		data.put("money", money);
 		this.factory = factory;
 		this.info = new RewardInfo("money", data);

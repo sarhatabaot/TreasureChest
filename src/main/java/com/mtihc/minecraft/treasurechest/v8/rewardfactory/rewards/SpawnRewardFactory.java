@@ -33,7 +33,7 @@ public class SpawnRewardFactory extends RewardFactory {
 		this.plugin = plugin;
 		
 		Plugin we = plugin.getServer().getPluginManager().getPlugin("WorldEdit");
-		if(we != null && we instanceof WorldEditPlugin) {
+		if(we instanceof WorldEditPlugin) {
 			worldEdit = (WorldEditPlugin) we;
 		}
 		else {
@@ -69,7 +69,7 @@ public class SpawnRewardFactory extends RewardFactory {
 			return;
 		}
 		
-		final SpawnReward reward = new SpawnReward(new RewardInfo(getLabel(), new HashMap<String, Object>()));
+		final SpawnReward reward = new SpawnReward(new RewardInfo(getLabel(), new HashMap<>()));
 		
 		
 		Prompt prompt = new SelectEntityTypePrompt() {

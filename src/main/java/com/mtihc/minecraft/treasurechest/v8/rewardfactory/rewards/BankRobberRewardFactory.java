@@ -97,8 +97,8 @@ public class BankRobberRewardFactory extends RewardFactory {
 		return robber;
 	}
 	
-	private final HashMap<String, BankRobber> robberByBank = new HashMap<String, BankRobber>();
-	private final HashMap<UUID, BankRobber> robbers = new HashMap<UUID, BankRobber>(); //UUID Upgrade
+	private final HashMap<String, BankRobber> robberByBank = new HashMap<>();
+	private final HashMap<UUID, BankRobber> robbers = new HashMap<>(); //UUID Upgrade
 	
 	public class BankRobber {
 		
@@ -175,7 +175,7 @@ public class BankRobberRewardFactory extends RewardFactory {
 	}
 
 
-	private HashMap<UUID, ReconnectTimer> reconnecters = new HashMap<UUID, ReconnectTimer>(); //UUID
+	private HashMap<UUID, ReconnectTimer> reconnecters = new HashMap<>(); //UUID
 	
 	void onPlayerJoin(PlayerJoinEvent event) {
 		ReconnectTimer timer = reconnecters.remove(event.getPlayer().getUniqueId()); //UUID

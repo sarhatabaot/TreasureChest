@@ -15,7 +15,7 @@ public class BankRobberReward implements IReward {
 
 	public BankRobberReward(BankRobberRewardFactory factory) {
 		this.factory = factory;
-		this.info = new RewardInfo("bankrobber", new HashMap<String, Object>());
+		this.info = new RewardInfo("bankrobber", new HashMap<>());
 	}
 	
 	BankRobberReward(BankRobberRewardFactory factory, RewardInfo info) {

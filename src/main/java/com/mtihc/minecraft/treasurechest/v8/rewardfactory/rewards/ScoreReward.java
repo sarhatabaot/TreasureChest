@@ -25,7 +25,7 @@ public class ScoreReward implements IReward {
 			throw new IllegalArgumentException("Parameter objective can't be null.");
 		}
 		
-		Map<String, Object> data = new HashMap<String, Object>();
+		Map<String, Object> data = new HashMap<>();
 		data.put("score", score);
 		data.put("objective", objective.getName());
 		this.info = new RewardInfo("score", data);

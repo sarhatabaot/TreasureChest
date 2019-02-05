@@ -20,7 +20,7 @@ public class SpawnReward implements IReward {
 	private RewardInfo info;
 
 	public SpawnReward(EntityType type, int amount, World world, Vector min, Vector max) {
-		HashMap<String, Object> data = new HashMap<String, Object>();
+		HashMap<String, Object> data = new HashMap<>();
 		this.info = new RewardInfo("spawn", data);
 		
 		setEntityType(type);

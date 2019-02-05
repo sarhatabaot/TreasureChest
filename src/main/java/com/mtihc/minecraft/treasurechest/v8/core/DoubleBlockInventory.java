@@ -44,7 +44,7 @@ public class DoubleBlockInventory implements IBlockInventory {
 
 	@Override
 	public Map<String, Object> serialize() {
-		Map<String, Object> values = new LinkedHashMap<String, Object>();
+		Map<String, Object> values = new LinkedHashMap<>();
 		values.put("left-side", getLeftSide());
 		values.put("right-side", getRightSide());
 		return values;

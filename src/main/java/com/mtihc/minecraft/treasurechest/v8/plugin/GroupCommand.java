@@ -100,7 +100,6 @@ public class GroupCommand extends SimpleCommand {
 				throw new CommandException("Failed to delete group \"" + name + "\".");
 			}
 			sender.sendMessage(ChatColor.YELLOW + "Group deleted.");
-			return;
 		}
 	}
 	
@@ -187,7 +186,7 @@ public class GroupCommand extends SimpleCommand {
 		
 		String name = args[0];
 		String playerName;
-		OfflinePlayer p = null;
+		OfflinePlayer p;
 		
 		try {
 			playerName = args[1];
@@ -428,7 +427,6 @@ public class GroupCommand extends SimpleCommand {
 		else {
 			sender.sendMessage(ChatColor.YELLOW + "All treasures in group " + name + " are no longer random.");
 		}
-		return;
 	}
 	
 	@Command(aliases = { "list" }, args = "", desc = "List all groups.", help = { "" })

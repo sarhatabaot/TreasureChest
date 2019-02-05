@@ -23,7 +23,7 @@ public class RestoreReward implements IReward {
 	public RestoreReward(RestoreRewardFactory factory, String snapshotName, String worldName, Vector min, Vector max) {
 		this.factory = factory;
 		
-		Map<String, Object> data = new HashMap<String, Object>();
+		Map<String, Object> data = new HashMap<>();
 		data.put("world", worldName);
 		data.put("min", min);
 		data.put("max", max);

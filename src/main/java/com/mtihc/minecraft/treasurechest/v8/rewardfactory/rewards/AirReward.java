@@ -19,7 +19,7 @@ public class AirReward implements IReward {
 	}
 	
 	public AirReward(int air) {
-		Map<String, Object> data = new HashMap<String, Object>();
+		Map<String, Object> data = new HashMap<>();
 		data.put("air", air);
 		this.info = new RewardInfo("air", data);
 	}

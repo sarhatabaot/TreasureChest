@@ -22,7 +22,7 @@ public class ExplosionReward implements IReward {
 	}
 	
 	public ExplosionReward(Location location, int power) {
-		Map<String, Object> data = new HashMap<String, Object>();
+		Map<String, Object> data = new HashMap<>();
 		data.put("power", power);
 		data.put("world", location.getWorld().getName());
 		data.put("coords", location.toVector());
